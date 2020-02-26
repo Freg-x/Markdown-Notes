@@ -3,6 +3,7 @@ Current Notes:
 
 * Deep learning
 * Translation
+* Intern-pre
 
 
 
