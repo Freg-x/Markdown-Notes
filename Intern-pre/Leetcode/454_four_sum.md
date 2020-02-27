@@ -1,7 +1,7 @@
 ### Description
 
 * **Level:** medium
-* **algorithm:**Hash
+* **algorithm:** Hash
 * **requirement:**![require](images/454_require.png)
 
 
