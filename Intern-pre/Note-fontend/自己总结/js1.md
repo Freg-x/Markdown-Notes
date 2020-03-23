@@ -80,7 +80,7 @@ typeof true // 'boolean'
 typeof Symbol() // 'symbol'
 ```
 
-Symbol()是ES6新基本类型，用于表示一个对象某个**唯一的**，用Symbol()创建。
+Symbol()是ES6新基本类型，用于表示一个对象某个**唯一的**属性，用Symbol()创建。
 
 ```javascript
 const shapeType = {
@@ -114,11 +114,52 @@ str1 instanceof String // true
 
 instanceof不能直接判断原始类型，会返回原始类型not defined
 
+## this指针
 
+```javascript
+function foo() {
+  console.log(this.a)
+}
+var a = 1
+foo()
 
+const obj = {
+  a: 2,
+  foo: foo
+}
+obj.foo()
 
+const c = new foo()
+```
 
+* 若直接调用foo()，this一定是window
+* 对于obj.foo()，谁调用了这个函数谁就是this
+* 若new创建，foo永远被绑定在了c上
 
+对于箭头函数：
+
+```javascript
+function a() {
+  return () => {
+    return () => {
+      console.log(this)
+    }
+  }
+}
+console.log(a()()())
+```
+
+首先箭头函数其实是没有 `this` 的，箭头函数中的 `this` 只取决包裹箭头函数的第一个普通函数的 `this`。在这个例子中，因为包裹箭头函数的第一个普通函数是 `a`，所以此时的 `this` 是 `window`。另外对箭头函数使用 `bind` 这类函数是无效的。
+
+其中有三个函数可以改变this的指向：
+
+* call()：第一个参数代表this指针的指向，后续的参数用逗号分隔
+* apply()：第一个参数代表this指针的指向，后续的参数以数组形式传入
+* bind()：参数类型同call，后续用逗号分隔，返回一个函数，故最后要加一个括号
+
+有图如下：
+
+![](images/this.png)
 
 
 
