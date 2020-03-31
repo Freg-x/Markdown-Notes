@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <memory>
+#include <climits>
 #include "stdio.h"
 #include "Base.h"
 
@@ -16,7 +17,10 @@ using namespace std;
 
 
 int main(int argc, const char * argv[]) {
-    
+    Base *base_p = new Base();
+    Extend *extend_p = new Extend();
+    base_p = extend_p;
+    cout<<INT_MAX<<endl;
     
   
 

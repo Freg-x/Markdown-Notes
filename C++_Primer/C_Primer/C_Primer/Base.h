@@ -26,4 +26,4 @@ public:
 
 
 
-#endif* /* Base_h */
+#endif /* Base_h */
