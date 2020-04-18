@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		150CCCC12428C63D0095A130 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 150CCCC02428C63D0095A130 /* main.cpp */; };
 		1539EAE4242B6A3700E44868 /* Base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1539EAE3242B6A3700E44868 /* Base.cpp */; };
+		15B541CC243DFFC4004B00CD /* SmartPtr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15B541CA243DFFC4004B00CD /* SmartPtr.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		150CCCC02428C63D0095A130 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		1539EAE2242B6A2600E44868 /* Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
 		1539EAE3242B6A3700E44868 /* Base.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Base.cpp; sourceTree = "<group>"; };
+		15B541CA243DFFC4004B00CD /* SmartPtr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SmartPtr.cpp; sourceTree = "<group>"; };
+		15B541CB243DFFC4004B00CD /* SmartPtr.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SmartPtr.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 				150CCCC02428C63D0095A130 /* main.cpp */,
 				1539EAE2242B6A2600E44868 /* Base.h */,
 				1539EAE3242B6A3700E44868 /* Base.cpp */,
+				15B541CA243DFFC4004B00CD /* SmartPtr.cpp */,
+				15B541CB243DFFC4004B00CD /* SmartPtr.hpp */,
 			);
 			path = C_Primer;
 			sourceTree = "<group>";
@@ -124,6 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15B541CC243DFFC4004B00CD /* SmartPtr.cpp in Sources */,
 				1539EAE4242B6A3700E44868 /* Base.cpp in Sources */,
 				150CCCC12428C63D0095A130 /* main.cpp in Sources */,
 			);
