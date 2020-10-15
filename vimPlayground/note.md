@@ -43,7 +43,6 @@ Remembering more instructions seems to be difficult at first. However, all the i
    > * ```wq``` Write and Quit.
    > * ```q!``` Quit without saving.
    > * ```:bn/:bp/:n``` Change to next file. 
-
 #### 3.0 Better, Stronger, Faster
 ##### 3.1 Better
 Use the commands below to make vim repeat.
@@ -51,4 +50,29 @@ Use the commands below to make vim repeat.
 > * ```N <command>``` Repeat a certain command N times.
 
 Here are some examples:
-> * 
+> * ```2dd``` Delete 2 line
+> * ```3p``` Paste 3 times
+> * ```100idesu [ESC]```desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu desu 
+> * ```.``` repeat last command(for example,100 desu).
+> * ```3.``` repeat last command 3 times.
+
+##### 3.2 Stronger
+This are things that can make your cursor move more efficient.
+> * N ```G``` Move to line N, you may also use ```:N```.
+> * ```gg``` Move to the first line.
+> * ```G``` Move to the last line.
+> * Move through words:
+> * * ```w``` Move to the first letter of a word.
+> * * ```e``` Move to the last letter of a word.
+> * * You may also use ```W``` or ```E```, when you are trying to move further:
+```
+      c   e w        E W       
+      |   | |        | |    
+x = (name_1,vision_3); #this is a statement
+```
+Here are some operations that are really powerful:
+> * ```%``` Match the bracket.
+> * ```*``` and ```#``` move to the next/last word that the current cursot pointing to.
+
+##### 3.3 Faster
+
