@@ -75,4 +75,42 @@ Here are some operations that are really powerful:
 > * ```*``` and ```#``` move to the next/last word that the current cursot pointing to.
 
 ##### 3.3 Faster
+The following commands can worked together with the move of the cursor, so you'd better remember how the cursor move.
 
+> * \<start position\>\<command\>\<end position\>
+
+For example, ```0y$``` means:
+* ```0``` to the start of a line
+* ```y``` copy from here
+* ```$``` to the last character of this line
+
+You can also type ```ye``` to copy to the last word of the current character.
+
+Use ```y2/foo``` to copy words inside two ```foo```(```y``` actually means yank)
+
+Paste is a command that paste things from buffer, so the thing that will be copied will not depend **only** on ```y```, but also ```d```/```v```/```gU```/```gu```,etc.
+
+#### 4. Super power of vim.
+#### 4.1 Move your cursor in current line:
+> * ```0``` Move to the start of a line.
+> * ```^``` Move to the start of a line and will ignore blank.
+      Try this line to feel the difference.
+> * ```$``` Move the the end of a line.
+> * ```g_``` Move to the end of a line and will ignore blank.
+> * ```fa``` to next character ```a```, and the letter ```a```  can be replaced.
+> * ```ta``` to the character before next ```a```, and the letter ```a``` can be replaced.
+> * ```3fa``` find the third ```a``` appear in this line.
+> * ```F``` and ```T``` works like ```f``` and ```t```, while the finding direction is reverse.
+> * ```dta``` delete until meet ```a```.
+
+```
+0     ^     #      fi    t)        4fi         g_   $
+|     |     |      |     |         |           |    |
+      x = (name_1,vision_3); #this is a comment;     
+```
+
+#### 4.2 Area selection ```<action>a<object>``` or ```<action>i<object>```
+The following command is especially strong in visual mode, and the format is:
+```<action>a<object>``` and ```<action>i<object>```
+* action can be any commands like ```d```(delete), ```y```(yank/copy) or ```v``` (visual selection)
+* object can be like ```w```(single word), ```W```(word splited by blank), ```s```(sentence), ```p```(paragraph). It is usually followed by the symbols below:```"```,```'```,```)```,```}```,```]```, which will select the content inside them.
