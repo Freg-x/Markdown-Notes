@@ -62,9 +62,9 @@ This are things that can make your cursor move more efficient.
 > * ```gg``` Move to the first line.
 > * ```G``` Move to the last line.
 > * Move through words:
-> * * ```w``` Move to the first letter of a word.
-> * * ```e``` Move to the last letter of a word.
-> * * You may also use ```W``` or ```E```, when you are trying to move further:
+>   * ```w``` Move to the first letter of a word.
+>   * ```e``` Move to the last letter of a word.
+>   * You may also use ```W``` or ```E```, when you are trying to move further:
 ```
       c   e w        E W       
       |   | |        | |    
@@ -91,14 +91,14 @@ Use ```y2/foo``` to copy words inside two ```foo```(```y``` actually means yank)
 Paste is a command that paste things from buffer, so the thing that will be copied will not depend **only** on ```y```, but also ```d```/```v```/```gU```/```gu```,etc.
 
 #### 4. Super power of vim.
-#### 4.1 Move your cursor in current line:
+##### 4.1 Move your cursor in current line:
 > * ```0``` Move to the start of a line.
 > * ```^``` Move to the start of a line and will ignore blank.
       Try this line to feel the difference.
 > * ```$``` Move the the end of a line.
 > * ```g_``` Move to the end of a line and will ignore blank.
-> * ```fa``` to next character ```a```, and the letter ```a```  can be replaced.
-> * ```ta``` to the character before next ```a```, and the letter ```a``` can be replaced.
+> * ```fa``` to next character ```a```, and the letter ```a```  can be replaced to other letter.
+> * ```ta``` to the character before next ```a```, and the letter ```a``` can be replaced to other letter.
 > * ```3fa``` find the third ```a``` appear in this line.
 > * ```F``` and ```T``` works like ```f``` and ```t```, while the finding direction is reverse.
 > * ```dta``` delete until meet ```a```.
@@ -109,8 +109,73 @@ Paste is a command that paste things from buffer, so the thing that will be copi
       x = (name_1,vision_3); #this is a comment;     
 ```
 
-#### 4.2 Area selection ```<action>a<object>``` or ```<action>i<object>```
+##### 4.2 Area selection ```<action>a<object>``` or ```<action>i<object>```
 The following command is especially strong in visual mode, and the format is:
 ```<action>a<object>``` and ```<action>i<object>```
 * action can be any commands like ```d```(delete), ```y```(yank/copy) or ```v``` (visual selection)
 * object can be like ```w```(single word), ```W```(word splited by blank), ```s```(sentence), ```p```(paragraph). It is usually followed by the symbols below:```"```,```'```,```)```,```}```,```]```, which will select the content inside them.
+
+For example, now you got a string below and your cursor is at the first letter ```o``` :
+```(map (+) + ("foo"))```
+> * ```vi"``` will select ```foo```      
+> * ```va``` will select ```"foo"```
+> * ```vi)``` will select ```"foo"```
+> * ```va(``` will select ```("foo")```
+> * ```v2i)``` wiil select ```map (+)("foo")```
+> * ```v2a)``` will select ```(map (+) ("foo"))```      
+      
+It is clear that the differenc between ```a``` and ```i``` is that a will select more two symbols, which are the outside ones.
+
+##### 4.3 Block instructions(Control + v)
+Typical instruction combination: ```^ <C-v> <C-d> I-- [ESC]``` 
+* ```^``` Move to the start of a line.
+* ```<C-v>``` Start a Block instruction.
+* ```<C-d>``` Move the cursor, you can also use hjkl to move.
+* ```I-- [ESC]``` ```I``` means insert and ```--``` is the word you want to insert in. Press ESC to make you command take effect.
+
+Here is a pravtice, make the following class memebers all private int.
+
+```
+class VimBlockTest{
+      public VimBlockTest(){};
+      public int width;
+      public int height;
+      public int length;
+}
+```
+You can first select all of the ```public``` keyword and delete them.Then Use the Method mentioned above to insert ```private```.
+
+##### 4.4 Auto Completion(Control+P)
+In Mac OSX terminal, only Control+P works, and both ```<C-n>``` and ```<C-p>``` will not take effect in VSCode.
+
+##### 4.5 Macro Recording
+* ```qa``` will record your instruction to register named ```a```.
+* ```@a``` will replay the Macro you just do.
+* ```@@``` is a hotKey to replay the Macro.
+
+> **Example:**
+> Insert a line which only contains one number ```1```
+> * ```qa Y p <C-a> q``` 
+>   * ```qa``` Start recording. 
+>   * ```Y``` copy current line. 
+>   * ```p``` Paste line. 
+>   * ```<C-a>``` Add one. 
+>   * ```q``` End recording. 
+> * ```@a``` write 2 after 1. 
+> * ```@@``` write 3 after 2.(not work in VSCode!). 
+> now do ```100@a```, whick will add 100 more line until 103. 
+
+##### 4.6 Visual Selection
+Before this section we have seen the example of ```<C-v>```(```<C-q>``` in Windows). Also, we can use ```v```(select single letter) and ```V```(select the whole line) to select something. Once you finish selecting, you can:
+* ```J``` join all lines together.
+* ```<``` ```>``` left/right tab the selecting block.
+* ```=``` auto tab.
+
+Add something behind all the lines.
+* ```<C-v>```
+* Select all lines. (using C-u/C-d/hjkl).
+* ```$``` Move the cursor to the end of current line. 
+* ```A``` insert the string and press ESC.
+
+Congratulations! This is basically all the  primer instructions you may need. Try to remember all of them and **always try to find best pratice.**
+Learing Vim is like learning the piano. More useful instructions may be added to this document later.
