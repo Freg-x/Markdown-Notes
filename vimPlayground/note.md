@@ -72,7 +72,7 @@ x = (name_1,vision_3); #this is a statement
 ```
 Here are some operations that are really powerful:
 > * ```%``` Match the bracket.
-> * ```*``` and ```#``` move to the next/last word that the current cursot pointing to.
+> * ```*``` and ```#``` move to the next/last word that the current cursor pointing to.
 
 ##### 3.3 Faster
 The following commands can worked together with the move of the cursor, so you'd better remember how the cursor move.
@@ -123,7 +123,7 @@ For example, now you got a string below and your cursor is at the first letter `
 > * ```va(``` will select ```("foo")```
 > * ```v2i)``` wiil select ```map (+)("foo")```
 > * ```v2a)``` will select ```(map (+) ("foo"))```      
-      
+
 It is clear that the differenc between ```a``` and ```i``` is that a will select more two symbols, which are the outside ones.
 
 ##### 4.3 Block instructions(Control + v)
