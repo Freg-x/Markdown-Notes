@@ -3,6 +3,8 @@
 #include<eigen3/Eigen/Dense>
 #include<iostream>
 
+const float COS45 = std::sqrt(2) / 2.0;
+
 int main(){
 
     // Basic Example of cpp
@@ -43,6 +45,13 @@ int main(){
     // matrix scalar multiply i * 2.0
     // matrix multiply i * j
     // matrix multiply vector i * v
+
+    Eigen::Vector3f OriginPoint(2, 1, 1);
+    Eigen::Matrix3f TransmationMatrix;
+
+    TransmationMatrix<<COS45, -COS45, 1.0, COS45, COS45, 2, 0, 0, 1.0;
+    std::cout<< "Final output"<<std::endl;
+    std::cout<<TransmationMatrix * OriginPoint << std::endl;
 
     return 0;
 }

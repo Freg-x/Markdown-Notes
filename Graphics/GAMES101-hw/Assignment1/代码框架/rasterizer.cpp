@@ -7,13 +7,12 @@
 #include <opencv2/opencv.hpp>
 #include <math.h>
 #include <stdexcept>
-
+#include <iostream>
 
 rst::pos_buf_id rst::rasterizer::load_positions(const std::vector<Eigen::Vector3f> &positions)
 {
     auto id = get_next_id();
     pos_buf.emplace(id, positions);
-
     return {id};
 }
 
@@ -21,7 +20,6 @@ rst::ind_buf_id rst::rasterizer::load_indices(const std::vector<Eigen::Vector3i>
 {
     auto id = get_next_id();
     ind_buf.emplace(id, indices);
-
     return {id};
 }
 

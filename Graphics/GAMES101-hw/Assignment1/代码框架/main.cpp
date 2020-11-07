@@ -3,6 +3,7 @@
 #include <eigen3/Eigen/Eigen>
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <cmath>
 
 constexpr double MY_PI = 3.1415926;
 
@@ -26,6 +27,13 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
     // TODO: Implement this function
     // Create the model matrix for rotating the triangle around the Z axis.
     // Then return it.
+    double sinAngle = std::sin(rotation_angle / 180.0 * acos(-1));
+    double cosAngle = std::cos(rotation_angle / 180.0 * acos(-1));
+
+    model << cosAngle, -sinAngle, 0, 0,
+             sinAngle, cosAngle,0, 0,
+             0,0,1,0,
+             0,0,0,1;
 
     return model;
 }
@@ -40,7 +48,31 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
     // TODO: Implement this function
     // Create the projection matrix for the given parameters.
     // Then return it.
+    Eigen::Matrix4f Persp2Ortho;
+    Eigen::Matrix4f Move2Origin;
+    Eigen::Matrix4f Zoom2Canoical;
 
+    float eye_fov_rad = eye_fov / 180.0 * acos(-1);
+    float t,b,l,r;
+    t = zNear * tan(eye_fov_rad / 2);
+    r = t * aspect_ratio;
+    b = -t;
+    l = -r;
+
+    Persp2Ortho << zNear, 0, 0, 0,
+                    0, zNear, 0, 0,
+                    0, 0, zNear + zFar, -zNear*zFar,
+                    0, 0, 1, 0;
+    Move2Origin << 1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, -(zNear + zFar)/2,
+                    0, 0, 0, 1;
+    Zoom2Canoical << 2/(r-l), 0, 0, 0,
+                    0, 2/(t-b), 0, 0,
+                    0, 0, 2/(zNear - zFar), 0,
+                    0, 0, 0, 1;
+    
+    projection = Zoom2Canoical * Move2Origin * Persp2Ortho * projection;
     return projection;
 }
 

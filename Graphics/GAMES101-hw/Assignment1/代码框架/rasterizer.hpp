@@ -36,6 +36,8 @@ enum class Primitive
  * For the curious : The draw function takes two buffer id's as its arguments.
  * These two structs make sure that if you mix up with their orders, the
  * compiler won't compile it. Aka : Type safety
+ * Two int params are confusing, so make a single struct to make sure not making
+ * mistakes.
  * */
 struct pos_buf_id
 {
