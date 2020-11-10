@@ -38,6 +38,25 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
     return model;
 }
 
+Eigen::Matrix4f get_rotation(Vector3f axis, float angle){
+    double radius_angle = angle / 180.0 * acos(-1);
+    Eigen::Matrix3f threeDimRes = Eigen::Matrix3f::Identity() * std::cos(radius_angle);
+    threeDimRes += ((1 - std::cos(radius_angle)) * axis * axis.transpose());
+
+    Eigen::Matrix3f N;
+    N << 0, -axis(2), axis(1),
+         axis(2), 0, -axis(0),
+        -axis(1), axis(0), 0;
+    threeDimRes += std::sin(radius_angle) * N;
+
+    Eigen::Matrix4f fourDimRes;
+    fourDimRes << threeDimRes(0), threeDimRes(1), threeDimRes(2), 0,
+                  threeDimRes(3), threeDimRes(4), threeDimRes(5), 0,
+                  threeDimRes(6), threeDimRes(7), threeDimRes(8), 0,
+                  0, 0, 0, 1;
+
+    return fourDimRes;
+}
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
                                       float zNear, float zFar)
 {
@@ -78,6 +97,7 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
 
 int main(int argc, const char** argv)
 {
+    Eigen::Vector3f axis(1, 0, 0);
     float angle = 0;
     bool command_line = false;
     std::string filename = "output.png";
@@ -85,7 +105,9 @@ int main(int argc, const char** argv)
     if (argc >= 3) {
         command_line = true;
         angle = std::stof(argv[2]); // -r by default
-        if (argc == 4) {
+        if(argc == 3){
+        }
+        else if (argc == 4) {
             filename = std::string(argv[3]);
         }
         else
@@ -109,7 +131,8 @@ int main(int argc, const char** argv)
     if (command_line) {
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
 
-        r.set_model(get_model_matrix(angle));
+        // r.set_model(get_model_matrix(angle));
+        r.set_model(get_rotation(axis, angle));
         r.set_view(get_view_matrix(eye_pos));
         r.set_projection(get_projection_matrix(45, 1, 0.1, 50));
 
@@ -125,7 +148,8 @@ int main(int argc, const char** argv)
     while (key != 27) {
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
 
-        r.set_model(get_model_matrix(angle));
+        // r.set_model(get_model_matrix(angle));
+        r.set_model(get_rotation(axis, angle));
         r.set_view(get_view_matrix(eye_pos));
         r.set_projection(get_projection_matrix(45, 1, 0.1, 50));
 
