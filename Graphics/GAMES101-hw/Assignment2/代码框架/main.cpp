@@ -32,7 +32,32 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float z
 {
     // TODO: Copy-paste your implementation from the previous assignment.
     Eigen::Matrix4f projection;
+    Eigen::Matrix4f Persp2Ortho;
+    Eigen::Matrix4f Move2Origin;
+    Eigen::Matrix4f Zoom2Canoical;
 
+    float eye_fov_rad = eye_fov / 180.0 * acos(-1);
+    float t,b,l,r;
+    t = zNear * tan(eye_fov_rad / 2);
+    r = t * aspect_ratio;
+    b = -t;
+    l = -r;
+
+    Persp2Ortho << zNear, 0, 0, 0,
+                    0, zNear, 0, 0,
+                    0, 0, zNear + zFar, -zNear*zFar,
+                    0, 0, 1, 0;
+    Move2Origin << 1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, -(zNear + zFar)/2,
+                    0, 0, 0, 1;
+    Zoom2Canoical << 2/(r-l), 0, 0, 0,
+                    0, 2/(t-b), 0, 0,
+                    0, 0, 2/(zNear - zFar), 0,
+                    0, 0, 0, 1;
+    
+    projection = Zoom2Canoical * Move2Origin * Persp2Ortho * projection;
+ 
     return projection;
 }
 
@@ -51,7 +76,6 @@ int main(int argc, const char** argv)
     rst::rasterizer r(700, 700);
 
     Eigen::Vector3f eye_pos = {0,0,5};
-
 
     std::vector<Eigen::Vector3f> pos
             {

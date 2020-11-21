@@ -43,6 +43,13 @@ void Triangle::setTexCoord(int ind, float s, float t) {
     tex_coords[ind] = Vector2f(s,t);
 }
 
+// template <class InputIterator, class OutputIterator, class UnaryOperation>
+// OutputIterator transform(InputIterator first1, InputIterator last1,
+//                             OutputIterator result, UnaryOperation op);
+
+// std::transform is a C++11 pattern that allows you to execute op from the first1
+// to last1 in an Input container, and save the output container to result.
+
 std::array<Vector4f, 3> Triangle::toVector4() const
 {
     std::array<Eigen::Vector4f, 3> res;
