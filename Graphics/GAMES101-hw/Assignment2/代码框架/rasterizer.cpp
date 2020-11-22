@@ -40,8 +40,8 @@ auto to_vec4(const Eigen::Vector3f& v3, float w = 1.0f)
 }
 
 
-static bool insideTriangle(int x, int y, const Vector3f* _v)
-{   
+static float insideTriangle(float x, float y, const Vector3f* _v)
+{  
     // TODO : Implement this function to check if the point (x, y) is inside the triangle represented by _v[0], _v[1], _v[2]
     Vector3f p0p1 = Eigen::Vector3f(_v[1].x() - _v[0].x(), _v[1].y() - _v[0].y(), 0);
     Vector3f p1p2 = Eigen::Vector3f(_v[2].x() - _v[1].x(), _v[2].y() - _v[1].y(), 0);
@@ -53,6 +53,17 @@ static bool insideTriangle(int x, int y, const Vector3f* _v)
 
     return (p0p1.cross(p0x).z() >= 0 && p1p2.cross(p1x).z() >= 0 && p2p0.cross(p2x).z() >= 0) ||
     (p0p1.cross(p0x).z() <= 0 && p1p2.cross(p1x).z() <= 0 && p2p0.cross(p2x).z() <= 0);
+}
+
+static float MSAADetect(int x, int y, const Vector3f* _v){
+    int sampleDensity = 4;
+    float sampleUnit = 1.0/(sampleDensity + 1);
+    float result = 0;
+    for(int i = 1;i <= sampleDensity;i++)
+        for(int j = 1; j <= sampleDensity;j++){
+            result += insideTriangle(x + i * sampleUnit, y + j * sampleUnit, _v)/(sampleDensity * sampleDensity);
+        }
+    return result;
 }
 
 static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v)
@@ -135,8 +146,11 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
 
     for(int i = minX;i <= maxX;i++)
         for(int j = minY; j <= maxY;j++){
+
             int index = get_index(i, j);
-            if(index >= 0 && index < width * (height - 1) && insideTriangle(i+0.5, j+0.5, t.v)){
+            float insideRange = MSAADetect(i,j,t.v);
+
+            if(index >= 0 && index < width * (height - 1) && insideRange != 0){
 
                 auto tup = computeBarycentric2D(i, j, t.v);
                 float alpha = std::get<0>(tup);
@@ -149,7 +163,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
 
                 if(z_interpolated < depth_buf[index]){
                     depth_buf[index] = z_interpolated;
-                    set_pixel(Eigen::Vector3f(i, j, 0), t.getColor());
+                    set_pixel(Eigen::Vector3f(i, j, 0), t.getColor()*insideRange);
                 }
             }
         }
