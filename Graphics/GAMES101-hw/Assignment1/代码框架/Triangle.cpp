@@ -49,3 +49,4 @@ std::array<Vector4f, 3> Triangle::toVector4() const
     });
     return res;
 }
+
